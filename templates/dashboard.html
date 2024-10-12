@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Welcome, {{ current_user.username }}!</h1>
+    <h2>Your Expenses</h2>
+    <form method="POST" action="{{ url_for('add_expense') }}">
+        <input type="text" name="title" placeholder="Expense Title" required>
+        <input type="number" step="0.01" name="amount" placeholder="Amount" required>
+        <input type="text" name="category" placeholder="Category" required>
+        <button type="submit">Add Expense</button>
+    </form>
+
+    <div class="expense-list">
+        <ul>
+            {% for expense in expenses %}
+                <li>{{ expense.title }} - {{ expense.amount }} ({{ expense.category }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <h2>Expense Analytics</h2>
+    <img src="{{ url_for('static', filename='expense_chart.png') }}" alt="Expense Chart">
+{% endblock %}
+
